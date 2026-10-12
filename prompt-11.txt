@@ -1,0 +1,25 @@
+
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+
+# Create the LLM
+llm = ChatOpenAI(model="gpt-3.5-turbo")
+
+# Create the prompt template
+prompt = PromptTemplate.from_template(
+    "Write a very short story (2-3 sentences) about {topic}."
+)
+
+# Create the output parser
+parser = StrOutputParser()
+
+# Create the LCEL chain
+chain = prompt | llm | parser
+
+# Run the chain with two different topics
+print("Story 1:")
+print(chain.invoke({"topic": "a dragon and a knight"}))
+
+print("\nStory 2:")
+print(chain.invoke({"topic": "a clever rabbit"}))
